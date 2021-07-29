@@ -13,7 +13,7 @@ class CreateWasteTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('waste_types', function (Blueprint $table) {
+        Schema::create('wastes', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->text('description')->nullable();
@@ -28,6 +28,6 @@ class CreateWasteTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('waste_types');
+        Schema::dropIfExists('wastes');
     }
 }

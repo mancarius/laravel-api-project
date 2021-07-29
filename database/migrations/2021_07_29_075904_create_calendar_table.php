@@ -16,7 +16,7 @@ class CreateCalendarTable extends Migration
         Schema::create('calendar', function (Blueprint $table) {
             $table->id();
             $table->foreignId('day_id')->constraint()->onDelete('CASCADE');
-            $table->foreignId('waste_types_id')->constraint()->onDelete('CASCADE');
+            $table->foreignId('waste_id')->constraint()->onDelete('CASCADE');
             $table->time('time_start');
             $table->time('time_interval')->default(3600);
             $table->timestamps();
