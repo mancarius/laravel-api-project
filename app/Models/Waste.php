@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Waste extends Model
 {
     use HasFactory;
+
+    public $timestamps = true;
 }
