@@ -15,10 +15,17 @@ class CreateCalendarTable extends Migration
     {
         Schema::create('calendar', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('day_id')->constraint()->onDelete('CASCADE');
-            $table->foreignId('waste_id')->constraint()->onDelete('CASCADE');
+            $table->foreignId('day_id')
+                ->constrained('days')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('waste_id')
+                ->constrained('wastes')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->time('time_start');
-            $table->time('time_interval')->default(3600);
+            $table->time('time_interval')
+                ->default(3600);
             $table->timestamps();
         });
     }
