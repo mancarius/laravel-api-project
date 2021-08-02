@@ -21,7 +21,6 @@ class CreateWastesTable extends Migration
             $table->json('allowed')->default(new Expression('(JSON_ARRAY())'));
             $table->json('not_allowed')->default(new Expression('(JSON_ARRAY())'));
             $table->string('color')->default('#ffffff');
-            $table->timestamps();
         });
     }
 

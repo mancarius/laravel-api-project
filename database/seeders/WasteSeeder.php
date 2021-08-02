@@ -21,8 +21,6 @@ class WasteSeeder extends Seeder
                 'allowed' => json_encode([]),
                 'not_allowed' => json_encode([]),
                 'color' => '#008000',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
             ],
             [
                 'name' => 'carta',
@@ -30,8 +28,6 @@ class WasteSeeder extends Seeder
                 'allowed' => json_encode([]),
                 'not_allowed' => json_encode([]),
                 'color' => '#0000FF',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
             ],
             [
                 'name' => 'plastica',
@@ -39,8 +35,6 @@ class WasteSeeder extends Seeder
                 'allowed' => json_encode([]),
                 'not_allowed' => json_encode([]),
                 'color' => '#FFFF00',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
             ],
             [
                 'name' => 'organico',
@@ -48,8 +42,6 @@ class WasteSeeder extends Seeder
                 'allowed' => json_encode([]),
                 'not_allowed' => json_encode([]),
                 'color' => '#AF593E',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
             ],
             [
                 'name' => 'metalli',
@@ -57,8 +49,6 @@ class WasteSeeder extends Seeder
                 'allowed' => json_encode([]),
                 'not_allowed' => json_encode([]),
                 'color' => '#40E0D0',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
             ],
             [
                 'name' => 'secco',
@@ -66,8 +56,6 @@ class WasteSeeder extends Seeder
                 'allowed' => json_encode([]),
                 'not_allowed' => json_encode([]),
                 'color' => '#808080',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s')
             ]
         ]);
     }
