@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DayController;
+use App\Http\Controllers\WasteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/overview', function (Request $request) {
-
-})->name('overview');
+Route::get('/day/{id?}', [DayController::class, 'show'])->name('day');
 
 
-Route::get('/day/?{day}', function (Request $request) {
-})->name('day');
+Route::get('/waste/{id?}', [WasteController::class, 'show'])->name('waste');
 
 
 Route::post('/day/{day}/{waste}', function (Request $request) {
