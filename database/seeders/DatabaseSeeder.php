@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             WasteSeeder::class,
             DaySeeder::class,
-            CalendarSeeder::class,
+            WasteDaySeeder::class,
         ]);
     }
 }
