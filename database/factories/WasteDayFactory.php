@@ -1,0 +1,34 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\WasteDay;
+use App\Models\Day;
+use App\Models\Waste;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class WasteDayFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = WasteDay::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $start_date = $this->faker->dateTimeBetween('2000-01-01 07:00:00', '2000-01-01 18:00:00');
+        return [
+            'day_id' => Day::inRandomOrder()->first()->id,
+            'waste_id' => Waste::inRandomOrder()->first()->id,
+            'collection_time_start' => $start_date->format('H:00:00'),
+            'collection_time_interval' => 3600
+        ];
+    }
+}
