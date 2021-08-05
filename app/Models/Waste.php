@@ -14,6 +14,6 @@ class Waste extends Model
 
     public function days () {
         return $this->belongsToMany(Day::class, 'waste_days')
-                    ->select(['days.*', 'waste_days.collection_time_start','waste_days.collection_time_interval']);
+                    ->select(['days.*', 'waste_days.collection_time_start','waste_days.collection_time_end','waste_days.key as collection_id']);
     }
 }

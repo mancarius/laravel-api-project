@@ -15,6 +15,7 @@ class CreateWasteDaysTable extends Migration
     {
         Schema::create('waste_days', function (Blueprint $table) {
             $table->id();
+            $table->string('key');
             $table->foreignId('day_id')
                 ->constrained('days')
                 ->onUpdate('cascade')
@@ -24,8 +25,7 @@ class CreateWasteDaysTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->time('collection_time_start');
-            $table->time('collection_time_interval')
-                ->default(3600);
+            $table->time('collection_time_end');
             $table->timestamps();
         });
     }

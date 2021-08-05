@@ -24,11 +24,18 @@ class WasteDayFactory extends Factory
     public function definition()
     {
         $start_date = $this->faker->dateTimeBetween('2000-01-01 07:00:00', '2000-01-01 18:00:00');
+        $end_date = $start_date;
         return [
+            'key' => $this->generateRandomKey(),
             'day_id' => Day::inRandomOrder()->first()->id,
             'waste_id' => Waste::inRandomOrder()->first()->id,
             'collection_time_start' => $start_date->format('H:00:00'),
-            'collection_time_interval' => 3600
+            'collection_time_end' => $end_date->add(new \DateInterval('PT120M'))->format('H:00:00')
         ];
+    }
+
+    private function generateRandomKey($ln = 20) {
+        $bytes = random_bytes($ln);
+        return bin2hex($bytes);
     }
 }
