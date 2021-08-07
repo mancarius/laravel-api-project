@@ -18,4 +18,4 @@ Route::resource('waste', App\Http\Controllers\WasteController::class)->only(['in
 
 Route::resource('day', App\Http\Controllers\DayController::class)->only(['index', 'show']);
 
-Route::resource('collection', App\Http\Controllers\WasteDayController::class)->except(['index', 'show', 'create', 'edit']);
+Route::resource('collection', App\Http\Controllers\WasteDayController::class)->except(['index', 'show', 'create', 'edit', 'put']);
