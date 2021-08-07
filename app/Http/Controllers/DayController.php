@@ -3,35 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Day;
+use App\Models\WasteDay;
+use Illuminate\Support\Facades\Validator;
 
 class DayController extends Controller
 {
-    /**
-     * Show the collected wastes in the given day.
-     *
-     * @param int $id If no day id is given, will be shown all days.
-     * @return \App\Models\Day
-     */
-    public function show($id = false)
-    {
-        if($id === false)
-            return $this->showAll();
-        else
-            return $this->showOne($id);
-    }
-
-
     /**
      * Return the collected wastes for every day.
      *
      * @return \App\Models\Day
      */
-    private function showAll()
+    public function index()
     {
         try{
             return [ 'days' => Day::with('wastes')->get() ];
-        } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return [ 'days' => [] ];
+        } catch(\Exception $e) {
+            return response('', 500);
         }
     }
 
@@ -39,21 +26,78 @@ class DayController extends Controller
     /**
      * Return the collected wastes in the given day.
      *
-     * @param int $id
+     * @param string $day day of week
      * @return \App\Models\Day
      */
-    private function showOne($id)
+    public function show($day)
     {
-        if($id > 0) {
-            try{
-                return [ 'wastes' => Day::findOrFail($id)->wastes ];
-            } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-                return [ 'wastes' => [] ];
-            }
+        $validator = Validator::make(['day' => $day], [
+            'day' => 'exists:App\Models\Day,name'
+        ]);
+
+        if ($validator->fails()) {
+            return response()
+                        ->json([
+                            'message' => $validator->errors()->all()
+                        ], 400);
         }
-        else
-        {
-            return [ 'wastes' => [] ];
+
+        try{
+            return response()->json([
+                'wastes' => Day::where('name', $day)->first()->wastes
+            ]);
+        } catch(\Exception $e) {
+            return response('', 500);
         }
+    }
+    
+    /**
+     * Returns true if the given waste collection is scheduled in the given day.
+     *
+     * @param int $waste_id
+     * @param int $day_id
+     * @return boolean
+     */
+    static function isWasteInDay($waste_id, $day_id): bool
+    {
+        try {
+            return !! WasteDay::where('waste_id', $waste_id)->where('day_id', $day_id)->count();
+        } catch(\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the required time interval is free in the given day
+     *
+     * @param int $day_id
+     * @param string $time_start
+     * @param string $time_end
+     * @return boolean
+     */
+    static function isSlotAvailableInDay($day_id, $time_start, $time_end): bool
+    {
+        $new_time_start = new \DateTime($time_start);
+        $new_time_end   = new \DateTime($time_end);
+        $wastes_collection = Day::findOrFail($day_id)->wastes;
+
+        function isTimeInInterval($time_test, $time_start, $time_end) {
+            if( $time_start < $time_test && $time_end > $time_test )
+                return true;
+            else
+                return false;
+        }
+
+        foreach ($wastes_collection as $waste) {
+            $test_time_start = new \DateTime( $waste->collection_time_start );
+            $test_time_end   = new \DateTime( $waste->collection_time_end );
+            
+            if ( isTimeInInterval($new_time_start, $test_time_start, $test_time_end) )
+                return false;
+            else if ( isTimeInInterval($new_time_end, $test_time_start, $test_time_end) )
+                return false;
+        }
+
+        return true;
     }
 }

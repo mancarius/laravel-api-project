@@ -3,37 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Waste;
-use Exception;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class WasteController extends Controller
 {
-    /**
-     * Show the collect days for the given waste.
-     *
-     * @param int $id If no waste id is given, will be shown all wastes.
-     * @return App\Models\Waste
-     */
-    public function show($id = false)
-    {
-        if($id === false)
-            return $this->showAll();
-        else
-            return $this->showOne($id);
-    }
-
-
     /**
      * Return the collected wastes for every day.
      *
      * @return \App\Models\Day
      */
-    private function showAll()
+    public function index()
     {
         try{
             return [ 'wastes' => Waste::with('days')->get() ];
-        } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return [ 'wastes' => [] ];
+        } catch(\Exception $e) {
+            return response('', 500);
         }
     }
 
@@ -44,12 +28,25 @@ class WasteController extends Controller
      * @param int $id
      * @return \App\Models\Day
      */
-    private function showOne($id)
+    public function show($waste)
     {
+        $validator = Validator::make(['waste' => $waste], [
+            'waste' => 'exists:App\Models\Waste,name'
+        ]);
+
+        if ($validator->fails()) {
+            return response()
+                        ->json([
+                            'message' => $validator->errors()->all()
+                        ], 400);
+        }
+
         try{
-            return ['days' => Waste::findOrFail($id)->days ];
-        } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return ['days' => [] ];
+            return response()->json([
+                'days' => Waste::where('name', $waste)->first()->days
+            ]);
+        } catch(\Exception $e) {
+            return response('', 500);
         }
     }
 
