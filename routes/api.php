@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\DayController;
-use App\Http\Controllers\WasteController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,12 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/day/{id?}', [DayController::class, 'show'])->name('day');
+Route::resource('waste', App\Http\Controllers\WasteController::class)->only(['index', 'show']);
 
+Route::resource('day', App\Http\Controllers\DayController::class)->only(['index', 'show']);
 
-Route::get('/waste/{id?}', [WasteController::class, 'show'])->name('waste');
-
-
-Route::post('/day/{day}/{waste}', function (Request $request) {
-
-});
+Route::resource('collection', App\Http\Controllers\WasteDayController::class)->except(['index', 'show', 'create', 'edit']);
