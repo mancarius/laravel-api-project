@@ -15,7 +15,7 @@ class CreateWasteDaysTable extends Migration
     {
         Schema::create('waste_days', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
+            $table->string('key')->unique();
             $table->foreignId('day_id')
                 ->constrained('days')
                 ->onUpdate('cascade')
