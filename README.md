@@ -1,62 +1,406 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Thanks again! Now go create something AMAZING! :D
+***
+***
+***
+*** To avoid retyping too much info. Do a search and replace for the following:
+*** mancarius, laravel-waste-sorting-api, twitter_handle, email, Waste Sorting API, This application allows you to keep track of the days of the week in which separate collection takes place.
+-->
 
+
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/mancarius/laravel-waste-sorting-api?style=for-the-badge">
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/mancarius/laravel-waste-sorting-api?style=for-the-badge">
+
+<br><br>
+
+<!-- PROJECT LOGO -->
+<br />
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <h1 align="center">Waste Sorting API</h1>
+
+  <p align="center">
+    This application allows you to keep track of the days of the week in which separate collection takes place.
+    <br />
+    <a href="https://github.com/mancarius/laravel-waste-sorting-api"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/mancarius/laravel-waste-sorting-api/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/mancarius/laravel-waste-sorting-api/issues">Request Feature</a>
+  </p>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#get-weekly-summary">Get weekly summary</a></li>
+        <li><a href="#get-daily-summary">Get daily summary</a></li>
+        <li><a href="#get-wasters-summary">Get wastes summary</a></li>
+        <li><a href="#add-new-pick-up">Add new pick-up</a></li>
+        <li><a href="#edit-pick-up-interval">Edit pick-up interval</a></li>
+        <li><a href="#remove-pick-up">Remove pick-up</a></li>
+      </ul>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<br>
+<br>
 
-## Learning Laravel
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+This is a laravel case study for [Start2Impact](http://start2impact.it). I have build a json REST API that allow to:
+* get the weekly summary of collection days
+* get the daily summary of the pick-up times
+* get the days and times of withdrawal of a single waste
+* add, edit and delete a pickup within a day of the week
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Built With
 
-### Premium Partners
+* [Laravel](https://laravel.com)
+* [MySql](https://mysql.com)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
 
+<!-- GETTING STARTED -->
+## Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+You need Composer. [See how to install Composer](https://getcomposer.org/doc/00-intro.md)
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/mancarius/laravel-waste-sorting-api.git
+   ```
+2. Install Composer packages
+   ```sh
+   composer install
+   ```
+3. Create a copy of your `.env` file
+
+4. Create an empty database using any database tools you prefer
+
+5. Configure your `.env` file to allow a connection to the database.
+    In the `.env` file, fill in the options _DB_HOST_, _DB_PORT_, _DB_DATABASE_, _DB_USERNAME_ and _DB_PASSWORD_ so that they match the credentials of the database you have just created.
+
+6. Add the tables and contents of your database with migrations
+   ```sh
+   php artisan migrate:fresh --seed
+   ```
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+In order to receive the correct responses from the service, be sure to set the header attribute _Access_ to '_application/json_'.
+
+### Get weekly summary
+
+In order to obtain the list of week days, send an HTTP `GET` request to the following URI:
+```sh
+<yourdomain>/api/day
+```
+The request don't need any parameter.
+
+If the request succeeds, the server responds with a 200 OK HTTP status code and the days results:
+```typescript
+200 OK
+
+{
+    "days": [
+        {
+            "id": Number;
+            "name": String;
+            "wastes": [
+                {
+                    "id": Number;
+                    "name": String;
+                    "description": String;
+                    "allowed": Array<String>;
+                    "not_allowed": Array<String>;
+                    "color": String;
+                    "pick_up_time_start": String;
+                    "pick_up_time_end": String;
+                    "pick_up_id": String;
+                },
+                ...
+            ]
+        },
+        ...
+    ]
+}
+```
+
+If the requesta fails, the server responds with a 400 Bad Request HTTP status code and a list of messages like:
+```typescript
+400 Bad Request
+
+{
+    "message": Array<String>;
+}
+```
+
+### Get daily summary
+
+In order to obtain the list of pick-ups for a specific day, send an HTTP `GET` request to the following URI with the name of the day:
+```sh
+<yourdomain>/api/day/{day}
+```
+The request don't need any other parameter.
+
+A real request example:
+```sh
+<yourdomain>/api/day/monday
+```
+
+If the request succeeds, the server responds with a 200 OK HTTP status code and the day results:
+```typescript
+200 OK
+
+{
+    "wastes": [
+        {
+            "id": Number;
+            "name": String;
+            "description": String;
+            "allowed": Array<String>;
+            "not_allowed": Array<String>;
+            "color": String;
+            "pick_up_time_start": String;
+            "pick_up_time_end": String;
+            "pick_up_id": String;
+        },
+        ...
+    ]
+}
+```
+
+If the requesta fails, the server responds with a 400 Bad Request HTTP status code and a list of messages like:
+```typescript
+400 Bad Request
+
+{
+    "message": Array<String>;
+}
+```
+
+### Get wastes summary
+
+In order to obtain the list of pick-ups for a specific day, send an HTTP `GET` request to the following URI with the name of the day:
+```sh
+<yourdomain>/api/waste/
+```
+The request don't need any other parameter.
+
+
+If the request succeeds, the server responds with a 200 OK HTTP status code and the wastes results with the relative pickup days:
+```typescript
+200 OK
+
+{
+    "wastes": [
+        {
+            "id": Number;
+            "name": String;
+            "description": String;
+            "allowed": Array<String>;
+            "not_allowed": Array<String>;
+            "color": String;
+            "days": [
+                {
+                    "id": Number,
+                    "name": String,
+                    "pick_up_time_start": String,
+                    "pick_up_time_end": String,
+                    "pick_up_id": String
+                },
+                ...
+            ]
+        },
+        ...
+    ]
+}
+```
+
+If the requesta fails, the server responds with a 400 Bad Request HTTP status code and a list of messages like:
+```typescript
+400 Bad Request
+
+{
+    "message": Array<String>;
+}
+```
+
+### Add new pick-up
+
+To add a new pick-up in a specific day, send an HTTP `POST` request to the following URI with the following format:
+```sh
+<yourdomain>/api/pick-up
+```
+The request has the following required query parameters:
+* `day` - the ID of the day to enter the pick-up
+* `waste` - the ID of the waste to pick-up
+* `timeStart` - the start of the pick-up interval with format `H:i:s`
+* `timeEnd` - the end of the pick-up interval with format `H:i:s`
+
+
+If the request succeeds, the server responds with a 200 OK HTTP status code and the wastes results with the relative pickup days:
+```typescript
+201 OK
+
+{
+    "pick-up": {
+        "id": String;
+    }
+}
+```
+
+If the requesta fails, the server responds with a 400 Bad Request HTTP status code and a list of messages like:
+```typescript
+400 Bad Request
+
+{
+    "message": Array<String>;
+}
+```
+
+### Edit pick-up interval
+
+To change a time interval of a specific pick up, send an HTTP `PATCH` request to the following URI with the following format:
+```sh
+<yourdomain>/api/pick-up/{id}
+```
+The request require at least one of the following query parameters:
+* `timeStart` - the start of the pick-up interval with format `H:i:s`
+* `timeEnd` - the end of the pick-up interval with format `H:i:s`
+
+
+If the request succeeds, the server responds with a 204 No Content HTTP status code :
+```typescript
+204 No Content
+```
+
+If the requesta fails, the server responds with a 400 Bad Request HTTP status code and a list of messages like:
+```typescript
+400 Bad Request
+
+{
+    "message": Array<String>;
+}
+```
+
+### Remove pick-up
+
+To remove a pick up from a day, send an HTTP `DELETE` request to the following URI with the following format:
+```sh
+<yourdomain>/api/pick-up/{id}
+```
+The request don't need any parameter.
+
+If the request succeeds, the server responds with a 204 No Content HTTP status code :
+```typescript
+204 No Content
+```
+
+If the requesta fails, the server responds with a 400 Bad Request HTTP status code and a list of messages like:
+```typescript
+400 Bad Request
+
+{
+    "message": Array<String>;
+}
+```
+<!-- ROADMAP -->
+## Roadmap
+
+See the [open issues](https://github.com/mancarius/laravel-waste-sorting-api/issues) for a list of proposed features (and known issues).
+
+
+
+<!-- CONTRIBUTING -->
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-## Code of Conduct
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
+<!-- LICENSE -->
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Mattia Mancarella - hello@mattiamancarella.com
+
+Project Link: [https://github.com/mancarius/laravel-waste-sorting-api](https://github.com/mancarius/laravel-waste-sorting-api)
+
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/mancarius/repo.svg?style=for-the-badge
+[contributors-url]: https://github.com/mancarius/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/mancarius/repo.svg?style=for-the-badge
+[forks-url]: https://github.com/mancarius/repo/network/members
+[stars-shield]: https://img.shields.io/github/stars/mancarius/repo.svg?style=for-the-badge
+[stars-url]: https://github.com/mancarius/repo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/mancarius/repo.svg?style=for-the-badge
+[issues-url]: https://github.com/mancarius/repo/issues
+[license-shield]: https://img.shields.io/github/license/mancarius/repo.svg?style=for-the-badge
+[license-url]: https://github.com/mancarius/repo/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/mancarius
