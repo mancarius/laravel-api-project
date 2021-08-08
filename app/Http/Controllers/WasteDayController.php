@@ -11,10 +11,10 @@ class WasteDayController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'day' => 'bail|required|exists:App\Models\Day,id',
-            'waste' => 'bail|required|exists:App\Models\Waste,id',
-            'time_start' => 'bail|required|date_format:G:i:s',
-            'time_end' => 'bail|required|date_format:G:i:s|after:time_start'
+            'dayId' => 'bail|required|exists:App\Models\Day,id',
+            'wasteId' => 'bail|required|exists:App\Models\Waste,id',
+            'timeStart' => 'bail|required|date_format:G:i:s',
+            'timeEnd' => 'bail|required|date_format:G:i:s|after:time_start'
         ]);
 
         if ($validator->fails()) {
@@ -28,7 +28,7 @@ class WasteDayController extends Controller
         {
             return response()
                         ->json([
-                            'message' => ["This collection already exist in this day."]
+                            'message' => ["This pick-up already exist in this day."]
                         ], 400);
         }
 
@@ -38,17 +38,17 @@ class WasteDayController extends Controller
         {
             return response()
                         ->json([
-                            'message' => ["This collection overlaps with another one."]
+                            'message' => ["This pick-up interval overlaps with another one."]
                         ], 400);
         }
 
-        // create collection
+        // create pick-up
         $waste_days = new WasteDay([
             'key' => bin2hex(random_bytes(20)),
             'waste_id' => $request->waste,
             'day_id' => $request->day,
-            'collection_time_start' => $request->time_start,
-            'collection_time_end' => $request->time_end
+            'pick_up_time_start' => $request->time_start,
+            'pick_up_time_end' => $request->time_end
         ]);
 
         $waste_days->save();
@@ -56,7 +56,7 @@ class WasteDayController extends Controller
         $waste_days->refresh();
 
         $json_response = json_encode([
-            'collection' => [
+            'pick_up' => [
                 'id' => $waste_days->key
             ]
         ]);
@@ -67,13 +67,13 @@ class WasteDayController extends Controller
 
     public function update(Request $request, $key)
     {
-        $collection = $request->all();
-        $collection['key'] = $key;
+        $pick_up = $request->all();
+        $pick_up['key'] = $key;
 
-        $validator = Validator::make($collection, [
+        $validator = Validator::make($pick_up, [
             'key' => 'bail|required|exists:App\Models\WasteDay,key',
-            'time_start' => 'bail|required|date_format:G:i:s',
-            'time_end' => 'bail|required|date_format:G:i:s|after:time_start'
+            'timeStart' => 'bail|required_without:timeEnd|date_format:G:i:s',
+            'timeEnd' => 'bail|required_without:timeStart|date_format:G:i:s|after:time_start'
         ]);
 
         if ($validator->fails()) {
@@ -83,27 +83,54 @@ class WasteDayController extends Controller
                         ], 400);
         }
 
-        $waste_days = WasteDay::where('key', $collection['id'])->first();
+        $waste_days = WasteDay::where('key', $pick_up['key'])->first();
+        
+        // time start - check and assign
+        if( isset($pick_up['timeStart']) ) {
 
-        $is_slot_available = DayController::isSlotAvailableInDay($waste_days->day_id, $collection['time_start'], $collection['time_end']);
+            $time_end = isset($pick_up['timeEnd']) ? $pick_up['timeEnd'] : $waste_days->pick_up_time_end;
+
+            if( strtotime($pick_up['timeStart']) > strtotime($time_end) ) {
+                return response()
+                            ->json([
+                                "message" => ["timeStart can't be greater than timeEnd"]
+                            ], 400);
+            }
+
+            $waste_days->pick_up_time_start = $pick_up['timeStart'];
+        }
+        // time end - check and assign
+        if( isset($pick_up['timeEnd']) ) {
+
+            $time_start = isset($pick_up['timeStart']) ? $pick_up['timeStart'] : $waste_days->pick_up_time_start;
+
+            if( strtotime($pick_up['timeEnd']) < strtotime($time_start) ) {
+                return response()
+                            ->json([
+                                "message" => ["timeStart can't be greater than timeEnd"]
+                            ], 400);
+            }
+
+            $waste_days->pick_up_time_end = $pick_up['timeStart'];
+        }
+
+        $is_slot_available = DayController::isSlotAvailableInDay(
+                                    $waste_days->day_id, 
+                                    $waste_days->pick_up_time_start, 
+                                    $waste_days->pick_up_time_end, 
+                                    $waste_days->key);
 
         if (!$is_slot_available)
         {
             return response()
                         ->json([
-                            'message' => ["This collection overlaps with another one."]
+                            'message' => ["This pick up overlaps with another one."]
                         ], 400);
         }
-
-        // update collection
+        
+        // update pick up
         try {
-
-            $waste_days->collection_time_start = $collection['time_start'];
-
-            $waste_days->collection_time_end = $collection['time_end'];
-
             $waste_days->save();
-
         } catch (\Exception $e) {
             return response('', 500);
         }
