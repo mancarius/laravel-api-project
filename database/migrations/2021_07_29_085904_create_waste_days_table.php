@@ -24,8 +24,8 @@ class CreateWasteDaysTable extends Migration
                 ->constrained('wastes')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->time('collection_time_start');
-            $table->time('collection_time_end');
+            $table->time('pick_up_time_start');
+            $table->time('pick_up_time_end');
             $table->timestamps();
         });
     }

@@ -29,8 +29,8 @@ class WasteDayFactory extends Factory
             'key' => $this->generateRandomKey(),
             'day_id' => Day::inRandomOrder()->first()->id,
             'waste_id' => Waste::inRandomOrder()->first()->id,
-            'collection_time_start' => $start_date->format('H:00:00'),
-            'collection_time_end' => $end_date->add(new \DateInterval('PT120M'))->format('H:00:00')
+            'pick_up_time_start' => $start_date->format('H:00:00'),
+            'pick_up_time_end' => $end_date->add(new \DateInterval('PT120M'))->format('H:00:00')
         ];
     }
 
