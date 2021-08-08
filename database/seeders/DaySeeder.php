@@ -22,16 +22,16 @@ class DaySeeder extends Seeder
                 'name' => 'monday',
             ],
             [
-                'name' => 'tuesday ',
+                'name' => 'tuesday',
             ],
             [
-                'name' => 'wednesday ',
+                'name' => 'wednesday',
             ],
             [
-                'name' => 'thursday ',
+                'name' => 'thursday',
             ],
             [
-                'name' => 'friday ',
+                'name' => 'friday',
             ],
             [
                 'name' => 'saturday',
